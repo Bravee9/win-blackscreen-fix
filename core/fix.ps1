@@ -1,7 +1,14 @@
 # Win Explorer AutoFix - Core Recovery Script
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
-# 1. Load configuration with fallback defaults
+# 1. Environment Verification: Ensure explorer.exe binary exists (e.g. Windows Server Core safety)
+$explorerBinary = Join-Path $env:SystemRoot 'explorer.exe'
+if (-not (Test-Path $explorerBinary)) {
+    # Headless or Server Core installation where Explorer shell is absent
+    exit 0
+}
+
+# 2. Load configuration with fallback defaults
 $configPath = Join-Path $PSScriptRoot 'config.json'
 $initialDelay = 5
 $forceRestart = $false
@@ -21,16 +28,16 @@ if (Test-Path $configPath) {
     }
 }
 
-# 2. Allow the operating system to finish user session and display driver initialization
+# 3. Allow user logon, display driver, and profile initialization
 Start-Sleep -Seconds $initialDelay
 
-# 3. Native Win32 API Definitions for Shell Health Inspection
+# 4. Native Win32 API Definitions for Shell Health Inspection
 $nativeDefinitions = @"
 using System;
 using System.Runtime.InteropServices;
 
 public class ShellInspector {
-    [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+    [DllImport("user32.dll", EntryPoint = "FindWindowW", SetLastError = true, CharSet = CharSet.Unicode)]
     public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
     [DllImport("user32.dll")]
@@ -42,63 +49,64 @@ public class ShellInspector {
 Add-Type -TypeDefinition $nativeDefinitions -ErrorAction SilentlyContinue
 
 function Test-ShellUnresponsive {
-    # Check 1: Process presence check
-    $explorers = Get-Process -Name explorer -ErrorAction SilentlyContinue
+    param([int]$SessionId)
+
+    # Check 1: Process presence in the current logon session
+    $explorers = Get-Process -Name explorer -ErrorAction SilentlyContinue | Where-Object { $_.SessionId -eq $SessionId }
     if (-not $explorers) {
+        # Explorer process is absent in the current user session
         return $true
     }
 
     # Check 2: Process thread responsiveness check
     foreach ($proc in $explorers) {
         if (-not $proc.Responding) {
+            # An active explorer thread in this session is hung
             return $true
         }
     }
 
-    # Check 3: Window-level inspection on Shell_TrayWnd (Taskbar)
+    # Check 3: Window-level inspection on Taskbar (Shell_TrayWnd)
     try {
         $trayHwnd = [ShellInspector]::FindWindow("Shell_TrayWnd", $null)
-        if ($trayHwnd -eq [IntPtr]::Zero) {
-            # Shell Tray window does not exist
-            return $true
-        }
-        if ([ShellInspector]::IsHungAppWindow($trayHwnd)) {
-            # Shell Tray window exists but is unresponsive
+        if ($trayHwnd -ne [IntPtr]::Zero -and [ShellInspector]::IsHungAppWindow($trayHwnd)) {
             return $true
         }
     } catch {
-        # Fallback to process state if API call encounters an exception
+        # Fallback cleanly if window lookup fails
     }
 
     return $false
 }
 
-# 4. Determine if intervention is required
-$needsRecovery = $forceRestart -or (Test-ShellUnresponsive)
+# 5. Determine if intervention is required for the current logon session
+$currentSessionId = [System.Diagnostics.Process]::GetCurrentProcess().SessionId
+$needsRecovery = $forceRestart -or (Test-ShellUnresponsive -SessionId $currentSessionId)
 
 if (-not $needsRecovery) {
     # Windows shell is operating normally. Terminate silently without causing screen flicker.
     exit 0
 }
 
-# 5. Terminate unresponsive explorer processes
-$explorers = Get-Process -Name explorer -ErrorAction SilentlyContinue
+# 6. Terminate unresponsive explorer processes strictly scoped to current session
+$explorers = Get-Process -Name explorer -ErrorAction SilentlyContinue | Where-Object { $_.SessionId -eq $currentSessionId }
 if ($explorers) {
     $explorers | Stop-Process -Force -ErrorAction SilentlyContinue
 }
 
-# 6. Wait for processes to exit completely (up to 3 seconds)
+# 7. Wait for processes in current session to exit completely (up to 3 seconds)
 $timeout = 0
-while ((Get-Process -Name explorer -ErrorAction SilentlyContinue) -and ($timeout -lt 3)) {
+while ((Get-Process -Name explorer -ErrorAction SilentlyContinue | Where-Object { $_.SessionId -eq $currentSessionId }) -and ($timeout -lt 3)) {
     Start-Sleep -Milliseconds 500
     $timeout += 0.5
 }
 
-# 7. Relaunch Windows Explorer from system root
-Start-Process "$env:SystemRoot\explorer.exe"
+# 8. Relaunch Windows Explorer from system root
+Start-Process $explorerBinary
 
-# 8. Health check verification
+# 9. Health check verification
 Start-Sleep -Seconds 2
-if (-not (Get-Process -Name explorer -ErrorAction SilentlyContinue)) {
-    Start-Process "$env:SystemRoot\explorer.exe"
+$postExplorers = Get-Process -Name explorer -ErrorAction SilentlyContinue | Where-Object { $_.SessionId -eq $currentSessionId }
+if (-not $postExplorers) {
+    Start-Process $explorerBinary
 }

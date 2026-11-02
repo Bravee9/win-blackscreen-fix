@@ -1,5 +1,2 @@
-{
-  "initialDelaySeconds": 5,
-  "forceRestart": false
-}
+{"initialDelaySeconds": 1, "forceRestart": false}
 
