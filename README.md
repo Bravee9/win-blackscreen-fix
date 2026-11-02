@@ -2,6 +2,10 @@
 
 A lightweight, 1-click zero-friction utility to automatically fix Windows 10/11 black screen on boot caused by hung/delayed `explorer.exe` startup.
 
+<p align="center">
+  <img src="images/sample.png" alt="Win Explorer AutoFix Preview" width="650" />
+</p>
+
 ---
 
 ### 🇻🇳 Tiếng Việt
@@ -54,6 +58,8 @@ win-explorer-autofix/
 ├── core/
 │   ├── fix.ps1        # Core logic: gracefully kills & restarts explorer.exe
 │   └── silent.vbs     # Hidden runner: executes script invisibly
+├── images/
+│   └── sample.png     # Preview / Demo image
 ├── README.md
 └── LICENSE
 ```
