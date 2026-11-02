@@ -1,26 +1,26 @@
-# Core script xu ly loi treo explorer.exe
-# 1. Cho 3 giay de he thong nap tai khoan va driver
+# Win Explorer AutoFix - Core Recovery Script
+
+# 1. Allow the operating system to finish user session and driver initialization
 Start-Sleep -Seconds 3
 
-# 2. Tim va buoc dung cac tien trinh explorer bi treo
+# 2. Terminate unresponsive explorer processes
 $explorers = Get-Process -Name explorer -ErrorAction SilentlyContinue
 if ($explorers) {
     $explorers | Stop-Process -Force -ErrorAction SilentlyContinue
 }
 
-# 3. Cho toi da 3 giay den khi tien trinh cu bien mat hoan toan
+# 3. Wait for processes to exit completely (up to 3 seconds)
 $timeout = 0
 while ((Get-Process -Name explorer -ErrorAction SilentlyContinue) -and ($timeout -lt 3)) {
     Start-Sleep -Milliseconds 500
     $timeout += 0.5
 }
 
-# 4. Khoi chay lai Explorer tu thu muc goc he thong
+# 4. Relaunch Windows Explorer from system root
 Start-Process "$env:SystemRoot\explorer.exe"
 
-# 5. Kiem tra lai (Health Check) sau 2 giay, phong truong hop chua len
+# 5. Health check verification
 Start-Sleep -Seconds 2
 if (-not (Get-Process -Name explorer -ErrorAction SilentlyContinue)) {
     Start-Process "$env:SystemRoot\explorer.exe"
 }
-

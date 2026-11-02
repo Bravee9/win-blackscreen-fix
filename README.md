@@ -1,6 +1,6 @@
-# Win Explorer AutoFix 🚀
+# Win Explorer AutoFix
 
-A lightweight, 1-click zero-friction utility to automatically fix Windows 10/11 black screen on boot caused by hung/delayed `explorer.exe` startup.
+A lightweight background utility designed to resolve the black screen issue on Windows 10 and 11 startup caused by unresponsive `explorer.exe` shell initialization.
 
 <p align="center">
   <img src="images/sample.png" alt="Win Explorer AutoFix Preview" width="650" />
@@ -8,61 +8,74 @@ A lightweight, 1-click zero-friction utility to automatically fix Windows 10/11 
 
 ---
 
-### 🇻🇳 Tiếng Việt
+## Overview
+
+### Problem
+On certain Windows 10 and Windows 11 configurations, the desktop shell (`explorer.exe`) fails to load during user logon, resulting in a black screen without desktop icons or the taskbar. Manually launching Task Manager (`Ctrl + Shift + Esc`) and restarting `explorer.exe` is typically required to restore normal shell operation.
+
+### Solution
+Win Explorer AutoFix automates this recovery process in the background:
+- **Silent Execution**: Executes without displaying console windows or interrupting the startup process.
+- **User-Level Scope**: Deploys to `%LOCALAPPDATA%` and the user startup folder without requiring Administrator (UAC) elevation.
+- **Process State Validation**: Confirms that the hung process has terminated completely before relaunching the shell, followed by a secondary health check.
+- **Self-Contained Deployment**: Automatically places necessary runtime components into the local application directory.
+
+---
+
+## Installation
+
+1. Download the repository source or latest release archive.
+2. Extract the archive.
+3. Run `Install.bat`.
+
+The installation script registers the background launcher to execute at user logon. The extracted directory may be safely deleted after installation.
+
+## Uninstallation
+
+To remove the utility and all associated startup entries:
+1. Run `Uninstall.bat`.
+
+---
+
+## Tiếng Việt
+
+### Tổng quan
 
 #### Vấn đề
-Mỗi khi khởi động Windows 10/11, đôi khi màn hình bị đen, taskbar và desktop icon không xuất hiện. Người dùng phải mở Task Manager (`Ctrl + Shift + Esc`) và restart `explorer.exe` bằng tay rất ức chế.
+Trên một số cấu hình Windows 10 và 11, tiến trình shell hệ thống (`explorer.exe`) có thể bị treo trong giai đoạn đăng nhập, dẫn đến tình trạng màn hình đen không hiển thị thanh tác vụ (Taskbar) và biểu tượng màn hình. Người dùng thường phải mở Task Manager thủ công để khởi động lại tiến trình.
 
 #### Giải pháp
-**Win Explorer AutoFix** giải quyết hoàn toàn vấn đề này một cách tự động và vô hình:
-* **Cài đặt 1-Click**: Chỉ cần tải về và nhấp đúp vào `Install.bat`.
-* **Chạy ngầm 100% (Silent)**: Không hiện cửa sổ đen CMD hay PowerShell nhấp nháy làm gián đoạn trải nghiệm.
-* **Không cần quyền Administrator (Zero-UAC)**: Cài đặt và chạy an toàn trong không gian người dùng (`%LOCALAPPDATA%`).
-* **Tự động sao chép**: Bạn có thể xóa file đã tải về sau khi cài đặt, công cụ sẽ tồn tại vĩnh viễn và tự kích hoạt mỗi khi mở máy.
-* **Gỡ cài đặt sạch sẽ**: Nhấp đúp vào `Uninstall.bat` để xóa hoàn toàn không để lại rác.
+Win Explorer AutoFix tự động hóa quá trình khôi phục:
+- **Thực thi ngầm**: Hoạt động không hiển thị giao diện console hay làm gián đoạn màn hình đăng nhập.
+- **Phân quyền người dùng**: Cài đặt trong phạm vi tài khoản hiện tại (`%LOCALAPPDATA%`), không yêu cầu nâng quyền Administrator (UAC).
+- **Kiểm tra trạng thái tiến trình**: Đảm bảo tiến trình lỗi đã dừng hẳn trước khi khởi chạy lại shell, kèm bước xác nhận trạng thái hoạt động.
+- **Tự động lưu trữ**: Tự sao chép các tệp thực thi vào thư mục hệ thống người dùng sau khi cài đặt.
 
-#### Hướng dẫn cài đặt
-1. Tải bản mới nhất từ [Releases](../../releases) (hoặc bấm **Code > Download ZIP**).
-2. Giải nén file vừa tải.
-3. Nhấp đúp vào file **`Install.bat`**.
-4. Hộp thoại xác nhận sẽ hiện lên báo thành công. Xong!
+### Hướng dẫn cài đặt
+1. Tải về mã nguồn hoặc bản phát hành.
+2. Giải nén thư mục.
+3. Chạy tệp `Install.bat`.
 
----
-
-### 🇬🇧 English
-
-#### The Problem
-On Windows 10/11 startup, you may occasionally encounter a black screen where desktop icons and the taskbar fail to load. The only workaround is opening Task Manager (`Ctrl + Shift + Esc`) and restarting `explorer.exe` manually.
-
-#### The Solution
-**Win Explorer AutoFix** automates this entirely:
-* **1-Click Installation**: Simply run `Install.bat`.
-* **100% Invisible**: Runs quietly in the background without any flashing console windows.
-* **No Admin Privileges Needed**: Runs safely under the current user's profile without prompting UAC.
-* **Self-Contained**: Automatically moves core scripts to `%LOCALAPPDATA%`. You can safely delete the downloaded folder after running `Install.bat`.
-* **Clean Uninstaller**: Run `Uninstall.bat` to completely remove all traces.
-
-#### Quick Start
-1. Download or clone this repository.
-2. Double-click **`Install.bat`**.
-3. A confirmation dialog will pop up. You're all set!
+### Gỡ cài đặt
+Chạy tệp `Uninstall.bat` để loại bỏ toàn bộ tệp và mục khởi động liên quan khỏi hệ thống.
 
 ---
 
-### 📂 Repository Structure
+## Project Structure
 
 ```text
 win-explorer-autofix/
-├── Install.bat        # 1-Click installer
-├── Uninstall.bat      # Clean uninstaller
+├── Install.bat
+├── Uninstall.bat
 ├── core/
-│   ├── fix.ps1        # Core logic: gracefully kills & restarts explorer.exe
-│   └── silent.vbs     # Hidden runner: executes script invisibly
+│   ├── fix.ps1
+│   └── silent.vbs
 ├── images/
-│   └── sample.png     # Preview / Demo image
+│   └── sample.png
 ├── README.md
 └── LICENSE
 ```
 
-### 📄 License
-This project is licensed under the [MIT License](LICENSE).
+## License
+
+Distributed under the MIT License. See [LICENSE](LICENSE) for details.
