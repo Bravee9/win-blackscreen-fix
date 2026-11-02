@@ -1,7 +1,7 @@
 # Win Explorer AutoFix - Core Recovery Script
 
-# 1. Allow the operating system to finish user session and driver initialization
-Start-Sleep -Seconds 3
+# 1. Allow the operating system to finish user session, display driver, and profile initialization
+Start-Sleep -Seconds 5
 
 # 2. Terminate unresponsive explorer processes
 $explorers = Get-Process -Name explorer -ErrorAction SilentlyContinue
