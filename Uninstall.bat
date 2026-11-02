@@ -12,3 +12,4 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "Remove-Item -Force -Erro
 mshta vbscript:Execute("msgbox ""Da go cai dat Win Explorer AutoFix thanh cong."", 64, ""Win Explorer AutoFix"":close")
 
 exit
+

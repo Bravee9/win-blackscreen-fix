@@ -23,3 +23,4 @@ Start-Sleep -Seconds 2
 if (-not (Get-Process -Name explorer -ErrorAction SilentlyContinue)) {
     Start-Process "$env:SystemRoot\explorer.exe"
 }
+

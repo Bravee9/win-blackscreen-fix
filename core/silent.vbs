@@ -3,3 +3,4 @@ target = WshShell.ExpandEnvironmentStrings("%LOCALAPPDATA%\AutoFixExplorer\fix.p
 
 ' Tham so 0: Chay hoan toan an (Hidden Window), khong hien CMD/PowerShell
 WshShell.Run "powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File """ & target & """", 0, False
+
