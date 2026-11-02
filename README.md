@@ -1,141 +1,133 @@
 # Win Explorer AutoFix
 
-<p align="center">
-  <b>A lightweight, zero-UAC background utility designed to fix the Windows 10 & 11 startup black screen issue caused by unresponsive <code>explorer.exe</code> shell initialization.</b>
-</p>
+A lightweight, background utility designed to detect and resolve Windows 10 and Windows 11 shell initialization failures (black screen at logon) caused by unresponsive `explorer.exe` instances.
 
-<p align="center">
-  <a href="https://github.com/Bravee9/win-explorer-autofix/releases/latest">
-    <img src="https://img.shields.io/github/v/release/Bravee9/win-explorer-autofix?color=0078D4&logo=github&label=Release" alt="Latest Release">
-  </a>
-  <img src="https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D4?logo=windows&logoColor=white" alt="Platform: Windows 10/11">
-  <img src="https://img.shields.io/badge/Zero--UAC-Native%20User%20Scope-success" alt="Zero UAC">
-  <a href="LICENSE">
-    <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT">
-  </a>
-</p>
-
-<p align="center">
-  <img src="images/sample.png" alt="Win Explorer AutoFix Preview" width="650" />
-</p>
+[![Release](https://img.shields.io/github/v/release/Bravee9/win-explorer-autofix?color=0078D4&label=Release)](https://github.com/Bravee9/win-explorer-autofix/releases/latest)
+[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D4)](https://github.com/Bravee9/win-explorer-autofix)
+[![Security](https://img.shields.io/badge/Privileges-Zero--UAC-green)](https://github.com/Bravee9/win-explorer-autofix)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ---
 
-## 📥 Tải về / Downloads
+## Downloads
 
-Bấm vào nút bên dưới để tải trực tiếp phiên bản bạn mong muốn:
+Direct download links for the latest stable build:
 
-<p align="center">
-  <a href="https://github.com/Bravee9/win-explorer-autofix/releases/latest/download/WinExplorerAutoFix-Setup.exe">
-    <img src="https://img.shields.io/badge/TẢI_BẢN_CÀI_ĐẶT-.EXE%20(Khuyên%20Dùng)-0078D4?style=for-the-badge&logo=windows&logoColor=white" alt="Download Installer .exe" height="42">
-  </a>
-  &nbsp;&nbsp;
-  <a href="https://github.com/Bravee9/win-explorer-autofix/releases/latest/download/WinExplorerAutoFix-Portable.zip">
-    <img src="https://img.shields.io/badge/TẢI_BẢN_THỦ_CÔNG-.ZIP%20(Portable)-6c757d?style=for-the-badge&logo=archive&logoColor=white" alt="Download Portable .zip" height="42">
-  </a>
-</p>
+| Package | Format | Target Audience | Direct Link |
+| :--- | :---: | :--- | :--- |
+| **Installer** | `.exe` | Standard users. Provides a setup wizard and integrates with Windows Installed Apps for clean removal. | [Download WinExplorerAutoFix-Setup.exe](https://github.com/Bravee9/win-explorer-autofix/releases/latest/download/WinExplorerAutoFix-Setup.exe) |
+| **Portable** | `.zip` | Advanced users. Contains raw scripts and batch launchers for manual inspection and deployment. | [Download WinExplorerAutoFix-Portable.zip](https://github.com/Bravee9/win-explorer-autofix/releases/latest/download/WinExplorerAutoFix-Portable.zip) |
 
-| Phiên bản / Package | Định dạng | Dành cho ai | Tải nhanh |
-| :--- | :---: | :--- | :---: |
-| **Bản Cài Đặt (Installer)** ⭐ | `.exe` | **Người dùng phổ thông**: Chỉ cần tải về và nhấp đúp chuột để cài. Có hỗ trợ gỡ cài đặt chuẩn trong Windows Settings. | [**Tải về .EXE**](https://github.com/Bravee9/win-explorer-autofix/releases/latest/download/WinExplorerAutoFix-Setup.exe) |
-| **Bản Thủ Công (Portable)** | `.zip` | **Người dùng nâng cao**: Muốn tự giải nén xem mã nguồn và chạy file kịch bản `.bat`. | [**Tải về .ZIP**](https://github.com/Bravee9/win-explorer-autofix/releases/latest/download/WinExplorerAutoFix-Portable.zip) |
-
-> [!NOTE]
-> *Nếu bạn không thể tải qua nút trên, hãy vào trang [**Releases**](https://github.com/Bravee9/win-explorer-autofix/releases) để chọn phiên bản mới nhất.*
+All releases and release notes are available on the [GitHub Releases](https://github.com/Bravee9/win-explorer-autofix/releases) page.
 
 ---
 
-## 🚀 Hướng Dẫn Sử Dụng (Dành Cho Mọi Người)
+## Overview
 
-### Dành cho Bản Cài Đặt (.exe) — Khuyên dùng:
-1. Bấm nút **[TẢI BẢN CÀI ĐẶT .EXE]** ở trên.
-2. Nhấp đúp chuột vào file `WinExplorerAutoFix-Setup.exe` vừa tải về.
-3. Bấm **Install** ➔ Hoàn tất!
-4. *(Nếu xuất hiện thông báo xanh của Windows "Windows protected your PC")*:
-   - Bấm vào dòng chữ **More info** (Thông tin khác).
-   - Chọn **Run anyway** (Vẫn chạy).
+### Problem Description
+On certain Windows 10 and Windows 11 configurations, the primary desktop shell (`explorer.exe`) fails to complete its graphical user interface initialization during the user logon sequence. This failure manifests as a persistent black screen lacking the taskbar, system tray, and desktop icons. Typically, manual intervention via Task Manager (`Ctrl + Shift + Esc`) is required to restart `explorer.exe`.
 
-### Dành cho Bản Thủ Công (.zip):
-1. Bấm nút **[TẢI BẢN THỦ CÔNG .ZIP]** và giải nén (Extract All) thư mục tải về.
-2. Nhấp đúp chuột vào file `Install.bat`.
+### Solution Architecture
+Win Explorer AutoFix automates shell health verification and recovery:
+- **Intelligent Conditional Recovery**: Evaluates shell responsiveness via native Win32 APIs before performing any action. If the shell is operating normally, the utility terminates immediately without restarting Explorer or causing screen flicker.
+- **Zero-UAC Requirement**: Deploys exclusively within user profile scope (`%LOCALAPPDATA%` and the user startup directory), requiring no elevated administrative privileges.
+- **Pure Native Execution**: Built entirely using native PowerShell and .NET platform invoke (P/Invoke) mechanisms, eliminating dependencies on legacy VBScript or MSHTA components and ensuring forward compatibility with Windows 11 24H2+.
+- **Process State Verification**: Confirms complete termination of hung processes before relaunching the shell, followed by a secondary verification step.
 
 ---
 
-## 🗑️ Cách Gỡ Cài Đặt (Uninstallation)
+## Detection Mechanism
 
-- **Nếu bạn cài bằng bản `.exe`**: Mở Windows **Settings** (Cài đặt) ➔ **Apps** (Ứng dụng) ➔ **Installed Apps** (Ứng dụng đã cài đặt) ➔ Tìm `Win Explorer AutoFix` và bấm **Uninstall**.
-- **Nếu bạn dùng bản `.zip`**: Chỉ cần chạy file `Uninstall.bat`.
+The recovery script (`core/fix.ps1`) performs the following sequential checks before executing any remediation:
 
----
-
-## 📖 English Documentation
-
-### Problem
-On certain Windows 10 and Windows 11 systems, the desktop shell (`explorer.exe`) fails to initialize during user logon, resulting in a black screen with no taskbar or desktop icons. Users typically have to launch Task Manager (`Ctrl + Shift + Esc`) and restart `explorer.exe` manually.
-
-### Solution
-**Win Explorer AutoFix** automates shell recovery completely in the background:
-- **Silent & Background**: Executes minimized without console popups or disturbing your login experience.
-- **Zero-UAC Requirement**: Deploys entirely within user profile scope (`%LOCALAPPDATA%`), requiring no administrator privileges.
-- **Pure Native Implementation**: Built on native PowerShell without legacy VBScript/MSHTA dependencies, ensuring compatibility with Windows 11 24H2+.
-- **Process Verification**: Verifies hung shell termination before relaunching, followed by a post-launch health check.
-
-### Quick Start
-1. Download [WinExplorerAutoFix-Setup.exe](https://github.com/Bravee9/win-explorer-autofix/releases/latest/download/WinExplorerAutoFix-Setup.exe).
-2. Run the installer and click **Install**.
-3. *(If Windows SmartScreen prompts "Windows protected your PC")*: Click **More info** ➔ **Run anyway**.
+1. **Process Presence**: Verifies whether an active `explorer.exe` process exists in the current session.
+2. **Thread Responsiveness**: Checks the `Responding` status of all active `explorer.exe` process threads.
+3. **Window-Level Inspection**:
+   - Queries `user32.dll!FindWindow` for the primary taskbar class `Shell_TrayWnd`. If this window is absent after the initialization delay, initialization failure is confirmed.
+   - Queries `user32.dll!IsHungAppWindow` against the taskbar window handle to detect unresponsive message loops.
+4. **Conditional Execution**: Recovery is initiated only if an anomaly is detected or if `forceRestart` is explicitly enabled.
 
 ---
 
-## 🇻🇳 Tiếng Việt (Chi Tiết Kỹ Thuật)
+## Installation
 
-### Vấn đề
-Trên một số phiên bản Windows 10 và 11, tiến trình `explorer.exe` có thể bị nghẽn trong giai đoạn khởi tạo đồ họa và nạp hồ sơ người dùng, dẫn đến hiện tượng màn hình đen không thanh Taskbar và icon.
+### Method 1: Executable Installer (Recommended)
+1. Download `WinExplorerAutoFix-Setup.exe`.
+2. Run the executable and proceed through the installation wizard.
+3. If prompted by Windows Defender SmartScreen, select **More info** followed by **Run anyway**.
 
-### Giải pháp
-Win Explorer AutoFix chạy ngầm một kịch bản nhẹ lúc đăng nhập:
-1. Cho phép Windows hoàn tất khởi tạo driver đồ họa trong vài giây đầu.
-2. Kiểm tra và giải phóng an toàn tiến trình `explorer.exe` đang bị treo.
-3. Tự động tái khởi chạy `explorer.exe` từ thư mục gốc hệ thống (`%SystemRoot%`).
-4. Kiểm tra sức khỏe tiến trình lần hai để đảm bảo giao diện Desktop đã hiện đầy đủ.
+The installer places runtime components into `%LOCALAPPDATA%\AutoFixExplorer` and registers a startup launcher shortcut.
+
+### Method 2: Manual / Portable
+1. Download and extract `WinExplorerAutoFix-Portable.zip`.
+2. Execute `Install.bat`.
 
 ---
 
-## 📁 Cấu Trúc Dự Án (Project Structure)
+## Configuration
+
+Operational parameters can be adjusted via `%LOCALAPPDATA%\AutoFixExplorer\config.json`:
+
+```json
+{
+  "initialDelaySeconds": 5,
+  "forceRestart": false
+}
+```
+
+- `initialDelaySeconds` (integer, default: `5`): Delay in seconds allocated for system initialization before running diagnostics. Lower values (e.g., `3`) may be used on high-speed NVMe drives; higher values (e.g., `8-10`) are recommended for mechanical hard drives.
+- `forceRestart` (boolean, default: `false`): When set to `true`, forces an unconditional restart of `explorer.exe` at logon regardless of diagnostic results.
+
+---
+
+## Uninstallation
+
+- **Installed via `.exe`**: Open Windows **Settings** > **Apps** > **Installed apps**, locate **Win Explorer AutoFix**, and select **Uninstall**.
+- **Installed via `.zip`**: Run `Uninstall.bat` from the extracted directory.
+
+---
+
+## Project Structure
 
 ```text
 win-explorer-autofix/
 ├── .github/
 │   └── workflows/
-│       └── release.yml        # CI/CD tự động đóng gói & xuất bản Release
+│       └── release.yml        # Automated release build workflow
 ├── core/
-│   ├── fix.ps1                # Kịch bản khôi phục shell nền tảng
-│   ├── install.ps1            # Cài đặt thủ công bằng PowerShell
-│   └── uninstall.ps1          # Gỡ cài đặt thủ công bằng PowerShell
+│   ├── fix.ps1                # Core diagnostics and recovery script
+│   ├── config.json            # Runtime configuration file
+│   ├── install.ps1            # Native installation logic
+│   └── uninstall.ps1          # Cleanup and removal logic
 ├── images/
-│   └── sample.png             # Ảnh minh họa giao diện
-├── build.ps1                  # Script đóng gói Setup .exe & Portable .zip
-├── installer.iss              # Kịch bản đóng gói Inno Setup 6
-├── Install.bat                # Trình khởi chạy cài đặt thủ công
-├── Uninstall.bat              # Trình khởi chạy gỡ cài đặt thủ công
-├── README.md                  # Tài liệu hướng dẫn
-└── LICENSE                    # Giấy phép mã nguồn mở MIT
+│   └── sample.png             # Preview image
+├── build.ps1                  # Release build script
+├── installer.iss              # Inno Setup compilation definition
+├── Install.bat                # Standalone installation launcher
+├── Uninstall.bat              # Standalone uninstallation launcher
+├── README.md                  # Documentation
+└── LICENSE                    # MIT License
 ```
 
 ---
 
-## 🛠️ Tự Đóng Gói Tại Máy (Building Locally)
+## Building from Source
 
-Nếu bạn muốn tự biên dịch ra file `.exe` cài đặt:
-1. Đảm bảo máy đã cài [Inno Setup 6](https://jrsoftware.org/isdl.php) (hoặc chạy: `winget install JRSoftware.InnoSetup`).
-2. Mở PowerShell trong thư mục dự án và chạy:
-   ```powershell
-   powershell -ExecutionPolicy Bypass -File .\build.ps1
-   ```
-3. Toàn bộ file cài đặt `.exe` và file `.zip` sẽ nằm gọn trong thư mục `release/`.
+Requirements:
+- Windows 10 or 11
+- PowerShell 5.1 or later
+- Inno Setup 6 (optional, required only for `.exe` compilation)
+
+To build both the installer and portable archive, execute:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\build.ps1
+```
+
+Generated assets will be placed in the `release/` directory.
 
 ---
 
 ## License
 
-Distributed under the MIT License. See [LICENSE](LICENSE) for details.
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
