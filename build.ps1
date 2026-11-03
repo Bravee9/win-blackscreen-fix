@@ -68,6 +68,7 @@ try {
     Copy-Item -Path (Join-Path $rootDir 'LICENSE') -Destination $stagingDir
     Copy-Item -Path (Join-Path $rootDir 'README.md') -Destination $stagingDir
     Copy-Item -Path (Join-Path $rootDir 'core') -Destination (Join-Path $stagingDir 'core') -Recurse
+    Copy-Item -Path (Join-Path $rootDir 'images') -Destination (Join-Path $stagingDir 'images') -Recurse
 
     Compress-Archive -Path "$stagingDir\*" -DestinationPath $zipOutput -CompressionLevel Optimal
     Write-Host "Portable archive created successfully!" -ForegroundColor Green

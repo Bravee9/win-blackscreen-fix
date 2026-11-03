@@ -7,6 +7,14 @@ A lightweight, background utility designed to detect and resolve Windows 10 and 
 [![Security](https://img.shields.io/badge/Privileges-Zero--UAC-green)](https://github.com/Bravee9/win-explorer-autofix)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
+<p align="center">
+  <img src="images/sample_1.jpg" alt="Physical monitor capture of startup black screen failure" width="48%" />
+  <img src="images/sample.png" alt="System shell hang symptom with cursor only" width="48%" />
+</p>
+<p align="center">
+  <em>Figure 1: Hardware monitor capture of logon black screen failure (left) and system shell hang state (right).</em>
+</p>
+
 ---
 
 ## Downloads
@@ -100,7 +108,8 @@ win-explorer-autofix/
 │   ├── install.ps1            # Native installation logic
 │   └── uninstall.ps1          # Cleanup and removal logic
 ├── images/
-│   └── sample.png             # Preview image
+│   ├── sample.png             # System shell hang symptom preview
+│   └── sample_1.jpg           # Hardware monitor capture of startup failure
 ├── build.ps1                  # Release build script
 ├── installer.iss              # Inno Setup compilation definition
 ├── Install.bat                # Standalone installation launcher
