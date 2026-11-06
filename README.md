@@ -2,9 +2,9 @@
 
 A lightweight, background utility designed to detect and resolve Windows 10 and Windows 11 shell initialization failures (black screen at logon) caused by unresponsive `explorer.exe` instances.
 
-[![Release](https://img.shields.io/github/v/release/Bravee9/black-screen-windows-10-11-fix?color=0078D4&label=Release)](https://github.com/Bravee9/black-screen-windows-10-11-fix/releases/latest)
-[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D4)](https://github.com/Bravee9/black-screen-windows-10-11-fix)
-[![Security](https://img.shields.io/badge/Privileges-Zero--UAC-green)](https://github.com/Bravee9/black-screen-windows-10-11-fix)
+[![Release](https://img.shields.io/github/v/release/Bravee9/win-blackscreen-fix?color=0078D4&label=Release)](https://github.com/Bravee9/win-blackscreen-fix/releases/latest)
+[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D4)](https://github.com/Bravee9/win-blackscreen-fix)
+[![Security](https://img.shields.io/badge/Privileges-Zero--UAC-green)](https://github.com/Bravee9/win-blackscreen-fix)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 <p align="center">
@@ -23,10 +23,10 @@ Direct download links for the latest stable build:
 
 | Package | Format | Target Audience | Direct Link |
 | :--- | :---: | :--- | :--- |
-| **Installer** | `.exe` | Standard users. Provides a setup wizard and integrates with Windows Installed Apps for clean removal. | [Download WinExplorerAutoFix-Setup.exe](https://github.com/Bravee9/black-screen-windows-10-11-fix/releases/latest/download/WinExplorerAutoFix-Setup.exe) |
-| **Portable** | `.zip` | Advanced users. Contains raw scripts and batch launchers for manual inspection and deployment. | [Download WinExplorerAutoFix-Portable.zip](https://github.com/Bravee9/black-screen-windows-10-11-fix/releases/latest/download/WinExplorerAutoFix-Portable.zip) |
+| **Installer** | `.exe` | Standard users. Provides a setup wizard and integrates with Windows Installed Apps for clean removal. | [Download WinExplorerAutoFix-Setup.exe](https://github.com/Bravee9/win-blackscreen-fix/releases/latest/download/WinExplorerAutoFix-Setup.exe) |
+| **Portable** | `.zip` | Advanced users. Contains raw scripts and batch launchers for manual inspection and deployment. | [Download WinExplorerAutoFix-Portable.zip](https://github.com/Bravee9/win-blackscreen-fix/releases/latest/download/WinExplorerAutoFix-Portable.zip) |
 
-All releases and release notes are available on the [GitHub Releases](https://github.com/Bravee9/black-screen-windows-10-11-fix/releases) page.
+All releases and release notes are available on the [GitHub Releases](https://github.com/Bravee9/win-blackscreen-fix/releases) page.
 
 ---
 
@@ -59,10 +59,18 @@ The recovery script (`core/fix.ps1`) performs the following sequential checks be
 
 ## Installation
 
+<p align="center">
+  <img src="images/install_guide.svg" alt="Visual 3-Step Installation Guide" width="100%" />
+</p>
+<p align="center">
+  <em>Figure 2: Visual 3-step installation walkthrough for Windows users.</em>
+</p>
+
 ### Method 1: Executable Installer (Recommended)
 1. Download `WinExplorerAutoFix-Setup.exe`.
-2. Run the executable and proceed through the installation wizard.
-3. If prompted by Windows Defender SmartScreen, select **More info** followed by **Run anyway**.
+2. Locate the file in Windows Explorer (typically in your `Downloads` folder) and double-click to open.
+3. If prompted by Windows Defender SmartScreen ("Windows protected your PC"), select **More info** followed by **Run anyway**.
+4. Click **Install** to finish. The utility registers silent startup monitoring in your user profile.
 
 The installer places runtime components into `%LOCALAPPDATA%\AutoFixExplorer` and registers a startup launcher shortcut.
 
@@ -98,7 +106,7 @@ Operational parameters can be adjusted via `%LOCALAPPDATA%\AutoFixExplorer\confi
 ## Project Structure
 
 ```text
-black-screen-windows-10-11-fix/
+win-blackscreen-fix/
 ├── .github/
 │   └── workflows/
 │       └── release.yml        # Automated release build workflow
@@ -108,6 +116,7 @@ black-screen-windows-10-11-fix/
 │   ├── install.ps1            # Native installation logic
 │   └── uninstall.ps1          # Cleanup and removal logic
 ├── images/
+│   ├── install_guide.svg      # Visual 3-step installation walkthrough
 │   ├── sample.png             # System shell hang symptom preview
 │   └── sample_1.jpg           # Hardware monitor capture of startup failure
 ├── build.ps1                  # Release build script
