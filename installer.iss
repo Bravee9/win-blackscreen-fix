@@ -2,7 +2,7 @@
 #define MyAppName "Win Explorer AutoFix"
 #define MyAppVersion "1.1.0"
 #define MyAppPublisher "Bravee9"
-#define MyAppURL "https://github.com/Bravee9/win-explorer-autofix"
+#define MyAppURL "https://github.com/Bravee9/black-screen-windows-10-11-fix"
 
 [Setup]
 AppId={{C68D37F2-4EA8-46FE-85E5-7B27C12DF31A}

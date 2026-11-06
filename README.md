@@ -2,9 +2,9 @@
 
 A lightweight, background utility designed to detect and resolve Windows 10 and Windows 11 shell initialization failures (black screen at logon) caused by unresponsive `explorer.exe` instances.
 
-[![Release](https://img.shields.io/github/v/release/Bravee9/win-explorer-autofix?color=0078D4&label=Release)](https://github.com/Bravee9/win-explorer-autofix/releases/latest)
-[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D4)](https://github.com/Bravee9/win-explorer-autofix)
-[![Security](https://img.shields.io/badge/Privileges-Zero--UAC-green)](https://github.com/Bravee9/win-explorer-autofix)
+[![Release](https://img.shields.io/github/v/release/Bravee9/black-screen-windows-10-11-fix?color=0078D4&label=Release)](https://github.com/Bravee9/black-screen-windows-10-11-fix/releases/latest)
+[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D4)](https://github.com/Bravee9/black-screen-windows-10-11-fix)
+[![Security](https://img.shields.io/badge/Privileges-Zero--UAC-green)](https://github.com/Bravee9/black-screen-windows-10-11-fix)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 <p align="center">
@@ -23,10 +23,10 @@ Direct download links for the latest stable build:
 
 | Package | Format | Target Audience | Direct Link |
 | :--- | :---: | :--- | :--- |
-| **Installer** | `.exe` | Standard users. Provides a setup wizard and integrates with Windows Installed Apps for clean removal. | [Download WinExplorerAutoFix-Setup.exe](https://github.com/Bravee9/win-explorer-autofix/releases/latest/download/WinExplorerAutoFix-Setup.exe) |
-| **Portable** | `.zip` | Advanced users. Contains raw scripts and batch launchers for manual inspection and deployment. | [Download WinExplorerAutoFix-Portable.zip](https://github.com/Bravee9/win-explorer-autofix/releases/latest/download/WinExplorerAutoFix-Portable.zip) |
+| **Installer** | `.exe` | Standard users. Provides a setup wizard and integrates with Windows Installed Apps for clean removal. | [Download WinExplorerAutoFix-Setup.exe](https://github.com/Bravee9/black-screen-windows-10-11-fix/releases/latest/download/WinExplorerAutoFix-Setup.exe) |
+| **Portable** | `.zip` | Advanced users. Contains raw scripts and batch launchers for manual inspection and deployment. | [Download WinExplorerAutoFix-Portable.zip](https://github.com/Bravee9/black-screen-windows-10-11-fix/releases/latest/download/WinExplorerAutoFix-Portable.zip) |
 
-All releases and release notes are available on the [GitHub Releases](https://github.com/Bravee9/win-explorer-autofix/releases) page.
+All releases and release notes are available on the [GitHub Releases](https://github.com/Bravee9/black-screen-windows-10-11-fix/releases) page.
 
 ---
 
@@ -98,7 +98,7 @@ Operational parameters can be adjusted via `%LOCALAPPDATA%\AutoFixExplorer\confi
 ## Project Structure
 
 ```text
-win-explorer-autofix/
+black-screen-windows-10-11-fix/
 ├── .github/
 │   └── workflows/
 │       └── release.yml        # Automated release build workflow
